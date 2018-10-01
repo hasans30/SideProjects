@@ -9,7 +9,21 @@ const employees = [
     Address: "Bellevue,WA",
     Phone: "425-588-7789",
     department: "SFW-DICE"
-  }
+  },
+  {
+    name: "Abhishek",
+    Address: "Shammamish,WA",
+    Phone: "425-588-7789",
+    department: "AI"
+    
+  },
+  {
+    name: "Mansoorm",
+    Address: "Redmond,WA",
+    Phone: "425-588-7789",
+    department: "SFW-Exp"
+    
+  },
 ];
 
 function replaceAll(str, find, replace) {
