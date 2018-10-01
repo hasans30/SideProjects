@@ -14,7 +14,7 @@ export function loadEmployee() {
   }
 
   export function loadEmployeesSuccess(employees) {
-    console.log('successfully loaded employees');
-    console.log(employees);
+    //console.log('successfully loaded employees');
+    //console.log(employees);
   return { type: types.LOAD_EMPLOYEES_SUCCESS, employees};
 }

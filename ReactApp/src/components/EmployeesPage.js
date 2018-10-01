@@ -5,12 +5,9 @@ import {bindActionCreators} from 'redux'
 
 class EmployeesPage extends React.Component 
 {
-
     render()
     {
-        const {emps}=this.props;
-        console.log('emps##')
-        console.log(emps);
+        const emps=this.props.employees; //this is how you access the store data. note that we got the props.employee as we set in mapStateToProps
         return (
             <div>
                 <h1> hello </h1>
@@ -31,7 +28,6 @@ class EmployeesPage extends React.Component
         );
     }
 }
-//export default EmployeesPage;
 
 function mapStateToProps(state, ownProps) {
     return {

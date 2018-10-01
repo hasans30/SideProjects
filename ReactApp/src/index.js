@@ -9,7 +9,6 @@ import {Provider} from 'react-redux';
 
 //create store
 const store = configureStore();
-debugger;
 store.dispatch(loadEmployee());
 
 //ReactDOM.render(<App store/>, document.getElementById('root'));
