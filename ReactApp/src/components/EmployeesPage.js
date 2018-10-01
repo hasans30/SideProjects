@@ -23,7 +23,7 @@ class EmployeesPage extends React.Component
       </thead>
       <tbody>
        { emps.map(emp =>
-        <tr>
+        <tr key={emp.name}>
           <td>{emp.name}</td>
           <td>{emp.Address}</td>
           <td>{emp.Phone}</td>
