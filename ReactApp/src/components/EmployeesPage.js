@@ -22,7 +22,15 @@ class EmployeesPage extends React.Component
       </tr>
       </thead>
       <tbody>
-          </tbody>
+       { emps.map(emp =>
+        <tr>
+          <td>{emp.name}</td>
+          <td>{emp.Address}</td>
+          <td>{emp.Phone}</td>
+          <td>{emp.department}</td>
+        </tr>
+        ) }
+        </tbody>
           </table>
             </div>
         );
