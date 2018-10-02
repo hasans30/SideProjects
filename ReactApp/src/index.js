@@ -14,8 +14,9 @@ store.dispatch(loadEmployee());
 //ReactDOM.render(<App store/>, document.getElementById('root'));
 ReactDOM.render(
     <Provider store={store}>
-    <App/>
+    <App />
     </Provider>,
     document.getElementById('root')
 );
 registerServiceWorker();
+ 

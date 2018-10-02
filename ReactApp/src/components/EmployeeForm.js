@@ -1,6 +1,6 @@
 import React from 'react';
-import TextInput from 'TextInput';
-import SelectInput from 'SelectInput';
+import TextInput from './TextInput';
+import SelectInput from './SelectInput';
 
 const EmployeeForm = ({employee, allAuthors, onSave, onChange, saving, errors}) => {
   return (
