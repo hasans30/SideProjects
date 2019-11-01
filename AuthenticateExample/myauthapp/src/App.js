@@ -1,25 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
+// authentication tutorial from  https://dzone.com/articles/add-user-authentication-to-your-react-app
+import React, { useState, useEffect } from 'react';
+import logo from './chuuuck-norris.png';
+import { decode } from 'he';
 import './App.css';
 
 function App() {
+  const [joke, setJoke] = useState('');
+  const fetchJoke = async signal => {
+    const url = new URL('https://api.icndb.com/jokes/random');
+    const response = await fetch(url, { signal });
+    const { value } = await response.json();
+    setJoke(decode(value.joke));
+
+  };
+
+  useEffect(() => {
+    if (!joke) {
+      const controller = new AbortController();
+      fetchJoke(controller.signal);
+      return () => controller.abort();
+    }
+  }, [joke]);
   return (
-    <div className="App">
+       <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p>{joke || '...'}</p>
+        <button className="App-link" onClick={() => setJoke('')}>
+          Get a new joke
+        </button>
       </header>
-    </div>
+    </div> 
   );
 }
 
