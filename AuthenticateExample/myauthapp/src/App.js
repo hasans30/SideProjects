@@ -1,4 +1,7 @@
 // authentication tutorial from  https://dzone.com/articles/add-user-authentication-to-your-react-app
+// TODO: add authentication logic using okta
+// TODO: add authentication version with azure aad
+//  TODO: add authentication from firebase
 import React, { useState, useEffect } from 'react';
 import logo from './chuuuck-norris.png';
 import { decode } from 'he';
