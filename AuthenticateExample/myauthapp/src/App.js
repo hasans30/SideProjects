@@ -31,6 +31,9 @@ function App(props) {
         <button className="App-link" onClick={() => setJoke("")}>
           Get a new joke {props.name}
         </button>
+        <button className="App-link" onClick={() => props.logout()}>
+          logout
+        </button>
       </header>
     </div>
   );

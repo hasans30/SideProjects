@@ -2,7 +2,7 @@
   "name": "myauthapp",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/",
+  "homepage": ".",
   "dependencies": {
     "@types/react": "^16.9.11",
     "@types/react-dom": "^16.9.4",

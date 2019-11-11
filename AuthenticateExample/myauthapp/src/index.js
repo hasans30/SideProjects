@@ -7,8 +7,8 @@ import { runWithAdal } from "react-adal";
 import { AuthenticationContext } from "react-adal";
 
 export const adalConfig = {
-  tenant: "your-tenant-guid",
-  clientId: "client-id",
+  tenant: "yourtenantid",
+  clientId: "yourappid",
   endpoints: {
     api: ""
   },
@@ -21,7 +21,7 @@ runWithAdal(authContext, () => {
   console.log({ ...authContext });
   console.log(authContext._user.userName);
   ReactDOM.render(
-    <App name={authContext._user.userName} />,
+    <App name={authContext._user.userName} logout={logout} />,
     document.getElementById("root")
   );
 });
@@ -30,3 +30,7 @@ runWithAdal(authContext, () => {
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
+function logout() {
+  authContext.logOut();
+}
