@@ -7,12 +7,13 @@ import { runWithAdal } from "react-adal";
 import { AuthenticationContext } from "react-adal";
 
 export const adalConfig = {
-  tenant: "yourtenantid",
-  clientId: "yourappid",
+  tenant: "245093a2-6175-4488-87ac-6182ccacc7ab",
+  clientId: "fd21f46e-158c-4f0e-bda8-33d88e62a480",
   endpoints: {
     api: ""
   },
-  cacheLocation: "localStorage"
+  cacheLocation: "localStorage",
+  popUp: true
 };
 
 export const authContext = new AuthenticationContext(adalConfig);
