@@ -194,7 +194,7 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.9.0.tgz#24390e6ad61386b0a747265754d2a17219de862c"
   integrity sha512-Uvq6hVe90D0B2WEnUqtdgY1bATGz3mw33nH9Y+dmA+w5DHvUmBgkr5rM/KCHpCsiFNRUfokW/szpPPgMK2hm4A==
 
-azure-keyvault@^3.0.5:
+azure-keyvault@^3.0.4:
   version "3.0.5"
   resolved "https://registry.yarnpkg.com/azure-keyvault/-/azure-keyvault-3.0.5.tgz#4a3c72dd0693d4a081b495c613f054a3dff2e1e5"
   integrity sha512-59fzKRq9dnzv03lEuImvgXc3QjRJoSJtK0gv1WXoqCivBuPdFNK+x6hAjoEDS2WEOXG+7m3uiJWqpMh/8NW3ow==
@@ -506,18 +506,6 @@ ms-rest-azure@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/ms-rest-azure/-/ms-rest-azure-2.6.0.tgz#2098efec529eecfa0c6e215b69143abcaba12140"
   integrity sha512-J6386a9krZ4VtU7CRt+Ypgo9RGf8+d3gjMBkH7zbkM4zzkhbbMOYiPRaZ+bHZcfihkKLlktTgA6rjshTjF329A==
-  dependencies:
-    adal-node "^0.1.28"
-    async "2.6.0"
-    moment "^2.22.2"
-    ms-rest "^2.3.2"
-    request "^2.88.0"
-    uuid "^3.2.1"
-
-ms-rest-azure@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/ms-rest-azure/-/ms-rest-azure-3.0.0.tgz#54d0341c2aeef7b9f17f2a46258788740b2f0ec5"
-  integrity sha512-cttN01/TtMDB4v3rt/WQ/slgffB6jcUYxcPzcL0VNSB+WFPE1j4y5ICNHMuD1RaNNekCYMI4Pv51BDQ/BXNq7Q==
   dependencies:
     adal-node "^0.1.28"
     async "2.6.0"
