@@ -1,15 +1,15 @@
-async function getKV() {
+async function getKV(interactiveLogin) {
   const AzureKeyVault = require("azure-keyvault");
   const MsRestAzure = require("ms-rest-azure");
   const config = require("./config");
   // option 1: with service principal secret.
-  // const credentials = await MsRestAzure.loginWithServicePrincipalSecret(
-  //   config.security.keyVaultAppId,
-  //   process.env["mysecretkey"], // keyvault secret
-  //   config.security.keyVaultTenantId
-  // );
-  // // option 2 : with interactive login
-  const credentials = await MsRestAzure.interactiveLogin();
+  const credentials = interactiveLogin
+    ? await MsRestAzure.interactiveLogin()
+    : await MsRestAzure.loginWithServicePrincipalSecret(
+        config.security.keyVaultAppId,
+        process.env[config.security.keyVaultAppIdSecretEnvironmentVariable], // keyvault secret
+        config.security.keyVaultTenantId
+      );
   const key = "azurevault"; // some random key
   const keyVaultClient = {
     // A key that identifies this client instance
@@ -38,6 +38,8 @@ async function getKV() {
   console.log(`${JSON.stringify(secretValue)}`);
 }
 
-getKV()
+var myArgs = process.argv.slice(2);
+
+getKV(myArgs.length > 0 && myArgs[0].match("int"))
   .then(x => console.log("done"))
   .catch(e => console.log(e));
