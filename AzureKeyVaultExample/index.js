@@ -20,7 +20,8 @@ async function getKV(interactiveLogin) {
     configuration: config.security
   };
 
-  const secretName = config.security.KeyVaultSecretName;
+  const secretName =
+    config.security.KeyVaultSecretName || process.argv[3] || process.argv[2];
   const keyVaultBaseUrl = config.security.keyVaultBaseUrl;
   const secretVersions = await keyVaultClient.client.getSecretVersions(
     keyVaultBaseUrl,
