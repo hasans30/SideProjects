@@ -16,11 +16,12 @@ export function activate(context: vscode.ExtensionContext) {
   // The commandId parameter must match the command field in package.json
   let disposable = vscode.commands.registerCommand(
     "extension.copybreadcrumbs",
-    () => {
+    async () => {
       // The code you place here will be executed every time your command is executed
 
       // Display a message box to the user
-      vscode.window.showInformationMessage("Copy breadcrumbs");
+      let text = await vscode.env.clipboard.readText();
+      vscode.window.showInformationMessage(`Copy breadcrumbs ${text}`);
     }
   );
 
