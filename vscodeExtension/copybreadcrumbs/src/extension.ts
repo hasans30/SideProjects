@@ -18,7 +18,22 @@ export function activate(context: vscode.ExtensionContext) {
     "extension.copybreadcrumbs",
     async () => {
       // The code you place here will be executed every time your command is executed
-
+      console.log("hello its running");
+      var activeEditor = vscode.window.activeTextEditor;
+      if (activeEditor !== undefined) {
+        vscode.commands
+          .executeCommand<vscode.DocumentSymbol[]>(
+            "vscode.executeDocumentSymbolProvider",
+            activeEditor.document.uri
+          )
+          .then((symbols: any[] | undefined) => {
+            if (symbols !== undefined) {
+              for (const variable of symbols) {
+                console.log(`${variable.kind}-${variable.name}`);
+              }
+            }
+          });
+      }
       // Display a message box to the user
       let text = await vscode.env.clipboard.readText();
       vscode.window.showInformationMessage(`Copy breadcrumbs ${text}`);
@@ -26,6 +41,18 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   context.subscriptions.push(disposable);
+}
+
+function findVars(symbols: vscode.DocumentSymbol[]): vscode.DocumentSymbol[] {
+  var vars = symbols.filter(symbol => {
+    // return symbol.kind === vscode.SymbolKind.Variable;
+    return true;
+  });
+  return vars.concat(
+    symbols
+      .map(symbol => findVars(symbol.children))
+      .reduce((a, b) => a.concat(b), [])
+  );
 }
 
 // this method is called when your extension is deactivated
