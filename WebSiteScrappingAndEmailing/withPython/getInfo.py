@@ -20,13 +20,31 @@ EMAILHELP -- password
 def myImmiHelper():
 
     url = "https://www.immihelp.com/visa-bulletin-movement/eb1-india/filing"
+    filename="_test.html"
     response = requests.get(url)
     parsedContent = BeautifulSoup(response.text, 'html.parser')
     entries = str(parsedContent.find('table', {'class':'graphTable'}))
-    with open("_test.html",encoding="utf-8",mode="w") as file:
-        file.write(entries)
-        file.close()
+    changed=getIfUpdated(filename,entries)
+    if(changed):
+        with open(filename,encoding="utf-8",mode="w") as file:
+            file.write(entries)
+            file.close()
+        sendEmail(entries)
+    else:
+        print('no new update')
 
+def getIfUpdated(filename,newContent):
+    oldContent=''
+    with open(filename,encoding="utf-8",mode="r") as file:
+        oldContent=file.read()
+        file.close()
+    if oldContent==newContent:
+        return False
+    else:
+        return True
+
+
+def sendEmail(entries):
     sender = os.environ['EMAILUSER']
     receivers = [os.environ['EMAILTO']]
     subject = 'Visa Bulletin EB1 India Filing'
@@ -40,7 +58,7 @@ def myImmiHelper():
     message.attach(MIMEText(body, 'html'))
 
 
-    smtp = 'smtp.office365.com'
+    smtp = 'smtp.gmail.com'
     user = sender
     password = os.environ['EMAILHELP']
     print(sender+'-'+receivers[0])
@@ -56,6 +74,4 @@ def myImmiHelper():
     except Exception as e:
         print("Error: unable to send email")
         print(e)
-
-
 myImmiHelper()
