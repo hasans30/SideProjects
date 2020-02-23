@@ -35,9 +35,13 @@ def myImmiHelper():
 
 def getIfUpdated(filename,newContent):
     oldContent=''
-    with open(filename,encoding="utf-8",mode="r") as file:
-        oldContent=file.read()
-        file.close()
+    try:
+        with open(filename,encoding="utf-8",mode="r") as file:
+            oldContent=file.read()
+            file.close()
+    except Exception as e:
+        print('exception occured while reading file')
+        print(e)
     if oldContent==newContent:
         return False
     else:
