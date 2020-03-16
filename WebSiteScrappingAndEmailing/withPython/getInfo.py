@@ -5,6 +5,7 @@ import ssl
 import os
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+import hashlib
 
 '''
 This program reads url and and notifies via email
@@ -17,10 +18,9 @@ EMAILHELP -- password
 '''
 
 
-def myImmiHelper():
+def myImmiHelper(url,sub):
 
-    url = "https://www.immihelp.com/visa-bulletin-movement/eb1-india/filing"
-    filename="_test.html"
+    filename=hashlib.sha256(url.encode('utf-8')).hexdigest()
     response = requests.get(url)
     parsedContent = BeautifulSoup(response.text, 'html.parser')
     entries = str(parsedContent.find('table', {'class':'graphTable'}))
@@ -29,7 +29,7 @@ def myImmiHelper():
         with open(filename,encoding="utf-8",mode="w") as file:
             file.write(entries)
             file.close()
-        sendEmail(entries)
+        sendEmail(entries,sub)
     else:
         print('no new update')
 
@@ -48,10 +48,10 @@ def getIfUpdated(filename,newContent):
         return True
 
 
-def sendEmail(entries):
+def sendEmail(entries,sub):
     sender = os.environ['EMAILUSER']
     receivers = [os.environ['EMAILTO']]
-    subject = 'Visa Bulletin EB1 India Filing'
+    subject =  sub
 
     message = MIMEMultipart('alternative')
     message['From'] = sender
@@ -78,4 +78,11 @@ def sendEmail(entries):
     except Exception as e:
         print("Error: unable to send email")
         print(e)
-myImmiHelper()
+
+urls = [
+        {"url":"https://www.immihelp.com/visa-bulletin-movement/eb1-india/filing","sub":"EB1 filing"},
+        {"url":"https://www.immihelp.com/visa-bulletin-movement/eb1-india/final","sub":"EB1 final"},
+        ]
+
+for url in urls:
+    myImmiHelper(url["url"],url["sub"])
