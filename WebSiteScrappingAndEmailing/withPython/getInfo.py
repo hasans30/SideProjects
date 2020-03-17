@@ -6,6 +6,7 @@ import os
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import hashlib
+import telemetry
 
 '''
 This program reads url and and notifies via email
@@ -86,3 +87,4 @@ urls = [
 
 for url in urls:
     myImmiHelper(url["url"],url["sub"])
+sendSignal("immihelp")
