@@ -41,7 +41,7 @@ $auth="Bearer $bearer"
 
 $pbitoken=Invoke-WebRequest -Uri "https://api.powerbi.com/v1.0/myorg/GenerateToken" -Method "POST" -Headers @{"method"="POST"; "authority"="api.powerbi.com"; "scheme"="https"; "path"="/v1.0/myorg/GenerateToken"; "pragma"="no-cache"; "cache-control"="no-cache"; "authorization"=$auth; "sec-fetch-dest"="empty"; "user-agent"="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"; "accept"="*/*"; "origin"="https://docs.microsoft.com"; "sec-fetch-site"="cross-site"; "sec-fetch-mode"="cors"; "referer"="https://docs.microsoft.com/en-us/rest/api/power-bi/embedtoken/generatetoken"; "accept-encoding"="gzip, deflate, br"; "accept-language"="en-US,en;q=0.9,pt;q=0.8,ar;q=0.7"} -ContentType "application/json" -Body ([System.Text.Encoding]::UTF8.GetBytes("{$([char]10)  `"datasets`": [$([char]10)    {$([char]10)      `"id`": `"2478bd4f-cc1b-4e3a-8566-922aa78865ab`"$([char]10)    }$([char]10)  ],$([char]10)  `"reports`": [$([char]10)    {$([char]10)      `"allowEdit`": true,$([char]10)      `"id`": `"6afe69fc-354b-40cc-a735-2eccb7dc5d6c`"$([char]10)    }  ]$([char]10)}$([char]10)"))
 
- write-output $(" export const pbiToken = $pbitoken") | tee -FilePath C:\gitrepo\Aria\honolulu-client\src\features\power-bi-poc\config.js
+$(" export const pbiToken = $pbitoken") | out-file -Encoding utf8  C:\gitrepo\Aria\honolulu-client\src\features\power-bi-poc\config.js
 }
 
 # main 
