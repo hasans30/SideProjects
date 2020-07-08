@@ -17,7 +17,7 @@ async function getKV(interactiveLogin) {
     // The client itself
     client: new AzureKeyVault.KeyVaultClient(credentials),
     // The configuration that has been used to create the client
-    configuration: config.security
+    configuration: config.security,
   };
 
   const secretName =
@@ -28,19 +28,30 @@ async function getKV(interactiveLogin) {
     secretName
   );
 
-  console.log(`${JSON.stringify(secretVersions)}`);
-  const secretVersion = secretVersions[0].id.match(/[a-zA-Z0-9]{30,}/)[0];
+  // console.log(`${JSON.stringify(secretVersions)}`);
 
-  const secretValue = await keyVaultClient.client.getSecret(
-    keyVaultBaseUrl,
-    secretName,
-    secretVersion
-  );
-  console.log(`${JSON.stringify(secretValue)}`);
+  let recentDate = new Date("Jan-01-1970");
+  let recentSecretValue;
+  for (let i = 0; i < secretVersions.length; i++) {
+    const secretVersion = secretVersions[i].id.match(/[a-zA-Z0-9]{30,}$/)[0];
+    // console.log(`querying for secrev version ${secretVersion}`);
+
+    const secretValue = await keyVaultClient.client.getSecret(
+      keyVaultBaseUrl,
+      secretName,
+      secretVersion
+    );
+    let thisDate = new Date(secretValue.attributes.updated);
+    if (recentDate < thisDate) {
+      recentDate = thisDate;
+      recentSecretValue = secretValue;
+    }
+  }
+
+  console.log(`${recentSecretValue.value}`);
 }
-
 var myArgs = process.argv.slice(2);
 
 getKV(myArgs.length > 0 && myArgs[0].match("int"))
-  .then(x => console.log("done"))
-  .catch(e => console.log(e));
+  .then((x) => x)
+  .catch((e) => console.log(e));
